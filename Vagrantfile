@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
             python-dev python3-minimal\
             python3-pip\
             python3-dev\
-            python-venv
+            pythovagrann-venv
         sudo apt-get update
         pip install --upgrade pip
         pip install pandas matplotlib
