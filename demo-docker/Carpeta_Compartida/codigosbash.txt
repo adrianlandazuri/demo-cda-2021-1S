@@ -1,0 +1,94 @@
+q01
+sed 's/\([0-9][0-9]\)\/\([0-9][0-9]\)\/\([0-9][0-9]\)/20\3-\2-\1/g' data.csv | \
+sed 's/\([0-9]\)\/\([0-9]\)\/\([0-9][0-9][0-9][0-9]\)/\3-0\2-0\1/g' | \
+sed 's/,\([0-9]\)/\.\1/g' | \
+sed 's/;/,/g' | sed 's/,a/\,\A/g' | sed 's/,c/\,\C/g' | sed 's/,,/\,\\N,/g' | \
+sed 's/,\\n/\,\\N/g' | sed 's/,\N/\,\\N/g' | sed 's/,n/\,\\N/g' | sed 's/,$/\,\\N/g'
+
+q02 - Aun no lo he hecho
+
+q03
+csvcut -c ccn data.csv | sed -n '2p'
+
+q04
+csvcut -c validthru data.csv | sed -n '3p'
+
+q05
+csvcut -c key data.csv | sed -n '4p'
+
+q06
+csvcut -c key data.csv | tail +2 | tail -n 1
+
+q07
+csvcut -c validthru data.csv | tail +2 | tail -n 1
+
+q08
+csvcut -c quota data.csv | tail +2 | tail -n 1
+
+q09
+csvcut -c ccn data.csv | sed -n '11p'
+
+q10
+cat data.csv | wc -l
+
+q11
+cut -d"," -f3 person | grep "Los Angeles (California)" | wc -l
+
+q12
+cut -d"," -f3 person | grep "New York (New York)" | wc -l
+
+q13
+sort -k1 person | cut -d"," -f3 | sed -n '1p' | sed 's/"//g'
+
+q14
+sort -k1 person | cut -d"," -f3 | sed -n '2p' | sed 's/"//g'
+
+q15
+sort -k1 person | cut -d"," -f3 | sed -n '3p' | sed 's/"//g'
+
+q16
+csvsql --query 'select * from person WHERE city != "Albuquerque (New Mexico)"' person | tail +2 | wc -l 
+
+q17
+csvsql --query 'select * from person WHERE city != "Anaheim (California)"' person | tail +2 | wc -l
+
+q18
+csvsql --query 'select * from person WHERE city != "Arlington (Texas)"' person | tail +2 | wc -l
+
+q19
+csvjoin -c ssn person bank.csv | grep "3608-2968-5750-1980" | cut -d"," -f5
+
+q20
+csvjoin -c ssn person bank.csv | grep "3608-2596-5551-1068" | cut -d"," -f5
+
+q21
+csvjoin -c ssn person bank.csv | grep "3608-2181-4994-1181" | cut -d"," -f5
+
+q22
+awk -F, '$2 ~ /Mar|Feb|Jan/ {print}' *.txt | wc -l
+
+q23
+awk -F, '$2 ~ /Apr|May|Jun/ {print}' *.txt | wc -l
+
+q24
+awk -F, '$2 ~ /Jul|Aug|Sep/ {print}' *.txt | wc -l
+
+q25
+awk -F, '$2 ~ /Oct|Nov|Dec/ {print}' *.txt | wc -l
+
+q26
+awk -F, '$6 ~ /-01-|-02-|-03-/ {print}' person | wc -l
+
+q27
+awk -F, '$6 ~ /-04-|-05-|-06-/ {print}' person | wc -l
+
+q28
+cut -d"," -f1 *.txt | sed 's/"//g' | cut -d"-" -f2 | grep "1192" | wc -l
+
+q29
+cut -d"," -f5 person | sed 's/"//g' | awk '/^A/' | sed 's/ /,/g' | awk -F, '$2 ~ /^A/' | wc -l
+
+q30
+awk -F, '$4 ~ /980|981|982|983|984|985|986|987|988|989|990/ {print}' *.txt | wc -l
+
+q31 - Dijeron que lo iban a modificar
